@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bg from "../assets/bg.jpeg";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../store/actions/authAction";
-import axios from 'axios';
-import { toast } from 'react-toastify';
-
+import axios from "axios";
+import { toast } from "react-toastify";
+import { ERROR_MESSAGE_CLEAR, SUCCESS_MESSAGE_CLEAR } from "../store/types/authType";
 
 const Register = () => {
-    const dispatch=useDispatch();
+    const { loading, authenticate, error, successMessage, myInfo } = useSelector((state) => state.auth);
+    console.log(myInfo);
+    const dispatch = useDispatch();
     const [state, setState] = useState({
         userName: "",
         email: "",
         password: "",
         confirmPassword: "",
-        image: "",
+        image: "",      
     });
     const [image, setImage] = useState("");
 
@@ -53,15 +55,36 @@ const Register = () => {
             return;
         }
         const formData = new FormData();
-        formData.append('userName', userName);
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('confirmPassword', confirmPassword);
-        formData.append('image', image);
+        formData.append("userName", userName);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("confirmPassword", confirmPassword);
+        formData.append("image", image);
 
         console.log(formData);
         dispatch(userRegister(formData));
     };
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (authenticate) {
+            navigate("/");
+            dispatch({
+                type:ERROR_MESSAGE_CLEAR
+            })
+        }
+        if (successMessage) {
+            toast.success(successMessage);
+            dispatch({
+                type:SUCCESS_MESSAGE_CLEAR
+            })
+        }
+        if (error.length > 0) {
+            error.map((err) => {
+                toast.error(err);
+            });
+        }
+    }, [successMessage, error]);
     return (
         <div className="w-[100vw] h-[100vh] p-8 md:p-16 text-white flex flex-col justify-center items-center   bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
             <div className="w-[85%] max-w-[400px] p-12  backdrop-blur-2xl	 rounded-xl">
