@@ -4,7 +4,7 @@ import avatar from '../assets/avatar.png'
 
 const FriendInfo = ({ currentfriend, activeUser, message }) => {
   return (
-    <div className="p-3 flex flex-col h-full w-[calc(33%-4rem)] rounded-md bg-gray-800 ml-4 text-white">
+    <div className="p-3 hidden xl:flex flex-col h-full w-[calc(33%-4rem)] rounded-md bg-gray-800 ml-4 text-white">
       <input type="checkbox" id="gallery" className="hidden" />
       <div className="flex flex-col items-center">
         <div className="h-16 w-16 rounded-full overflow-hidden mb-1.5">
@@ -32,7 +32,7 @@ const FriendInfo = ({ currentfriend, activeUser, message }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-1.5 overflow-y-auto hidden" id="galleryContent">
+      <div className="grid grid-cols-2 gap-1.5 overflow-y-auto" id="galleryContent">
         {/* {message && message.length > 0 && message.map((m, index) => (
           m.message.image && <img key={index} src={`./image/${m.message.image}`} className="w-full h-full" alt="" />
         ))} */}

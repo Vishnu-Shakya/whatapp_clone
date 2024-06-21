@@ -10,15 +10,16 @@ const ChatList = () => {
         { name: "Bob David", message: "Typing...", time: "Jul 08" },
         { name: "Jimmy Oliver", message: "Hey, I have job for you", time: "May 29" },
         { name: "Alice Amel", message: "Can you help me?", time: "May 29" },
+        { name: "Alice Amel", message: "Can you help me?", time: "May 29" },
+        { name: "Alice Amel", message: "Can you help me?", time: "May 29" },
+        { name: "Alice Amel", message: "Can you help me?", time: "May 29" },
     ];
 
    
 
     return (
         <div className="flex-1 overflow-y-auto">
-            <div className="flex justify-between p-4 border-b border-gray-700">
-                <input type="text"  className=" w-[98%] h-10 rounded-[3.5rem] text-center bg-[#555]"  placeholder="search"/ >
-            </div>
+           
             {chats.map((chat, index) => (
                 <div key={index} className="p-2 border-b border-gray-700 hover:bg-gray-700 flex h-auto "  >
                     <div className="flex items-center p-4 relative">

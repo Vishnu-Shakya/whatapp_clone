@@ -3,6 +3,7 @@ import { FaPhoneAlt, FaVideo, FaRocketchat,FaInfo } from "react-icons/fa";
 
 import avatar from '../assets/avatar.png'
 import FriendInfo from './FreindInfo';
+import Message from './Message';
 
 const Chatwindow = (props) => {
   const {
@@ -19,10 +20,10 @@ const Chatwindow = (props) => {
   } = props;
 
   return (
-    <div className="w-3/4">
-      <div className="h-full">
-        <div className="flex h-full">
-          <div className="transition-all duration-500 w-2/3 ">
+    <div className="hidden md:flex xl:w-3/4 w-full">
+      <div className="h-full w-full">
+        <div className="flex h-full w-full">
+          <div className="transition-all duration-500 xl:w-2/3 w-full ">
             <div className="h-full ml-4 flex flex-col justify-between bg-gray-800 rounded-md p-4">
               <div className="flex items-center justify-between p-3  ">
                 <div className="flex items-center">
@@ -48,11 +49,15 @@ const Chatwindow = (props) => {
                   </div>
                 </div>
               </div>
+              <div className='h-full w-[94%] bg-[#222] mx-auto my-4 rounded-xl'>
+              <Message></Message>
+              </div>
 
              
 
              
             </div>
+            
           </div>
           <FriendInfo></FriendInfo>
 
