@@ -4,24 +4,15 @@ import { FaPhoneAlt, FaVideo, FaRocketchat,FaInfo } from "react-icons/fa";
 import avatar from '../assets/avatar.png'
 import FriendInfo from './FreindInfo';
 import Message from './Message';
+import { useSelector } from 'react-redux';
+import MessageSend from './MessageSend';
 
-const Chatwindow = (props) => {
-  const {
-    currentfriend,
-    inputHendle,
-    newMessage,
-    sendMessage,
-    message,
-    scrollRef,
-    emojiSend,
-    ImageSend,
-    activeUser,
-    typingMessage
-  } = props;
-
+const Chatwindow = () => {
+  const {currentFriend}=useSelector(state=>state.currentFriend)
+  // console.log(currentFriend)
   return (
     <div className="hidden md:flex xl:w-3/4 w-full">
-      <div className="h-full w-full">
+      {currentFriend?(<div className="h-full w-full">
         <div className="flex h-full w-full">
           <div className="transition-all duration-500 xl:w-2/3 w-full ">
             <div className="h-full ml-4 flex flex-col justify-between bg-gray-800 rounded-md p-4">
@@ -34,7 +25,7 @@ const Chatwindow = (props) => {
                    
                   </div>
                   <div className="flex items-center justify-center ml-2">
-                    <h3 className="text-white">Vishnu Shakya</h3>
+                    <h3 className="text-white">{currentFriend.userName}</h3>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -50,8 +41,9 @@ const Chatwindow = (props) => {
                 </div>
               </div>
               <div className='h-full w-[94%] bg-[#222] mx-auto my-4 rounded-xl'>
-              <Message></Message>
+              <Message currentFriend={currentFriend}></Message>
               </div>
+              <MessageSend></MessageSend>
 
              
 
@@ -66,7 +58,7 @@ const Chatwindow = (props) => {
         </div>
 
 
-      </div>
+      </div>):<div className='w-full flex text-white text-2xl h-full justify-center items-center'>please select a frined</div>}
     </div>
   );
 };

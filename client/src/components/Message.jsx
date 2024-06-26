@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
+import {useDispatch, useSelector} from 'react-redux';
 import avatar from "../assets/avatar.png";
 import avatar2 from "../assets/avatar2.jpg";
+import { getMessage } from "../store/actions/messengerAction";
 
-const Message = () => {
-    const myInfo = { id: 1, name: "Myself" };
+
+const Message = ({currentFriend}) => {
+    const dispatch=useDispatch();
+    const {myInfo} = useSelector(state=>state.auth);
     const currentfriend = { id: 2, userName: "John Doe", image: "john.jpg", createdAt: new Date() };
     const messages = [
         { id: 1, senderId: 1, message: { text: "Hello, John!", image: "" }, status: "seen", createdAt: new Date() },
         { id: 2, senderId: 2, message: { text: "", image: "sample-image.jpg" }, status: "delivered", createdAt: new Date() },
     ];
     const typingMessage = { senderId: 2, msg: true };
+    useEffect(()=>{
+        const data={fdId:currentFriend._id,
+            myId:myInfo.id};
+        dispatch(getMessage(data));
+    },[currentFriend?._id])
 
     return (
         <>

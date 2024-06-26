@@ -54,7 +54,7 @@ const userRegister = async (req, res) => {
                 expiresIn: process.env.TOKEN_EXP
             });
             console.log(token);
-
+            req.myId=newUser._id;
             return res.status(201).json({
                 successMessage: "User created successfully",
                 token
@@ -120,6 +120,12 @@ const userLogin = async (req, res) => {
                 expiresIn: process.env.TOKEN_EXP
             });
 
+            res.cookie('autToken', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+                sameSite: 'strict'
+            });
+            req.myId=foundUser._id;
             return res.status(200).json({
                 successMessage: "User login successful",
                 token

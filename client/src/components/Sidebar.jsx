@@ -3,8 +3,10 @@ import React from 'react';
 import ChatList from './Chatlist';
 import avtar from '../assets/avatar.png'
 import threeDot from '../assets/threeDot.png'
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
+  
   return (
     <div className="xl:w-[25%] bg-gray-800 text-white flex flex-col rounded-xl w-[90%] md:w-[40%] xl:max-w-[30rem]">
       <div className="flex items-center p-3 justify-between">
