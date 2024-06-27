@@ -1,7 +1,7 @@
 import { CURRENT_FRIEND_SELECT, FRIEND_GET_FAIL, FRIEND_GET_SUCCESS } from "../types/messengerType";
 
 const messengerState={
-    currentFriend:""
+    currentFriend:"",
 }
 
 export const currentFriendReducer=(state=messengerState,action)=>{

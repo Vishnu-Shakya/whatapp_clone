@@ -54,8 +54,8 @@ const Login = () => {
             })
         }
     },[error,successMessage]);
-    return ( <div className="w-[100vw] h-[100vh] p-8 md:p-16 text-white flex flex-col justify-center items-center   bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
-        <div className="w-[85%] max-w-[400px] p-12  backdrop-blur-2xl	 rounded-xl">
+    return ( <div className="w-[100vw] h-[100vh] p-8 md:p-16 text-white flex flex-col justify-center items-center   bg-cover bg-center bg-[#222]" >
+        <div className="w-[85%] max-w-[400px] p-12  backdrop-blur-2xl	 rounded-xl bg-gray-800">
             <h2 className="text-3xl font-bold mb-4 text-center  ">Login</h2>
             <form className="space-y-4 mt-4" onSubmit={login}>
                 

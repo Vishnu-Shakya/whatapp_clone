@@ -1,8 +1,11 @@
-import { FRIEND_GET_FAIL, FRIEND_GET_SUCCESS } from "../types/messengerType";
+import { FRIEND_GET_FAIL, FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS,MESSAGE_ALL_GET_SUCCESS, MESSAGE_SEND_SUCCESS } from "../types/messengerType";
 
 const messengerState={
-    friends:[]
+    friends:[],
+    messages:[],
+    lastMessage:[]
 }
+
 
 export const messengerReducer=(state=messengerState,action)=>{
     const {payload,type}=action;
@@ -18,6 +21,31 @@ export const messengerReducer=(state=messengerState,action)=>{
             ...state,
         }
     }
+    if(type===MESSAGE_GET_SUCCESS){
+        console.log(payload)
+        return {
+            ...state,
+            messages:payload.messages
+        }
+    }
+    if(type===MESSAGE_ALL_GET_SUCCESS){
 
+        return {
+            ...state,
+            lastMessage:payload.messages
+        }
+    }
+    if(type===MESSAGE_SEND_SUCCESS){
+        return {
+            ...state,
+            messages:[...state.messages,payload.message] 
+        }
+    }
+    if(type==='SOCKET_MESSAGE'){
+        return {
+            ...state,
+            messages:[...state.messages,payload] 
+        }
+    }
     return state;
 }

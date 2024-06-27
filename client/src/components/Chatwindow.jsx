@@ -7,7 +7,7 @@ import Message from './Message';
 import { useSelector } from 'react-redux';
 import MessageSend from './MessageSend';
 
-const Chatwindow = () => {
+const Chatwindow = ({socket}) => {
   const {currentFriend}=useSelector(state=>state.currentFriend)
   // console.log(currentFriend)
   return (
@@ -41,9 +41,9 @@ const Chatwindow = () => {
                 </div>
               </div>
               <div className='h-full w-[94%] bg-[#222] mx-auto my-4 rounded-xl'>
-              <Message currentFriend={currentFriend}></Message>
+              <Message currentFriend={currentFriend} socket={socket}></Message>
               </div>
-              <MessageSend></MessageSend>
+              <MessageSend socket={socket}></MessageSend>
 
              
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import { messageSend } from '../store/actions/messengerAction';
 
-const MessageSend = ({ onSendMessage }) => {
+const MessageSend = ({ socket }) => {
     const [message, setMessage] = useState('');
     const {myInfo}=useSelector(state=>state.auth);
     const {currentFriend}=useSelector(state=>state.currentFriend);
@@ -17,6 +17,15 @@ const MessageSend = ({ onSendMessage }) => {
             message:message?message:"Hi"
         }
         dispatch(messageSend(data));
+        socket.current.emit("sendMessage",{
+            senderId:myInfo.id,
+            receiverId:currentFriend._id,
+            time:new Date(),
+            message:{
+                text:data.message,
+                image:""
+            }
+        });
 
         
     };
@@ -26,7 +35,7 @@ const MessageSend = ({ onSendMessage }) => {
     };
 
     const handleKeyPress = (e) => {
-        if (e.key === 'l') {
+        if (e.key === 'Enter') {
             console.log(message)
             handleSendMessage(e);
         }

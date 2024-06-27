@@ -5,8 +5,9 @@ export const userRegister = (data) => {
         try {
 
             const response = await axios.post(import.meta.env.VITE_SERVER_URL + '/register', data);
-            // document.cookie = `authToken=${response.data.token}; path=/; expires=${new Date(Date.now() + import.meta.env.VITE_COOKIE_EXP * 24 * 60 * 60 * 1000).toUTCString()}; Secure; SameSite=Strict`;
-            // localStorage.setItem('authToken', response.data.token);
+            document.cookie = `authToken=${response.data.token}; path=/; expires=${new Date(Date.now() + import.meta.env.VITE_COOKIE_EXP * 24 * 60 * 60 * 1000).toUTCString()}; Secure; SameSite=Strict`;
+            localStorage.setItem('authToken', response.data.token);
+            console.log(response)
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload: {
@@ -30,6 +31,7 @@ export const userLogin = (data) => {
         console.log(data);
         try {
             const response = await axios.post(import.meta.env.VITE_SERVER_URL + '/login', data);
+            console.log(response)
             document.cookie = `authToken=${response.data.token}; path=/; expires=${new Date(Date.now() + import.meta.env.VITE_COOKIE_EXP * 24 * 60 * 60 * 1000).toUTCString()}; Secure; SameSite=Strict`;
             localStorage.setItem('authToken', response.data.token);
             dispatch({

@@ -54,7 +54,6 @@ const userRegister = async (req, res) => {
                 expiresIn: process.env.TOKEN_EXP
             });
             console.log(token);
-            req.myId=newUser._id;
             return res.status(201).json({
                 successMessage: "User created successfully",
                 token

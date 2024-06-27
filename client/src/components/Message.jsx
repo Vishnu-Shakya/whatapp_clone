@@ -1,32 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import avatar from "../assets/avatar.png";
 import avatar2 from "../assets/avatar2.jpg";
 import { getMessage } from "../store/actions/messengerAction";
 
 
-const Message = ({currentFriend}) => {
-    const dispatch=useDispatch();
-    const {myInfo} = useSelector(state=>state.auth);
-    const currentfriend = { id: 2, userName: "John Doe", image: "john.jpg", createdAt: new Date() };
-    const messages = [
-        { id: 1, senderId: 1, message: { text: "Hello, John!", image: "" }, status: "seen", createdAt: new Date() },
-        { id: 2, senderId: 2, message: { text: "", image: "sample-image.jpg" }, status: "delivered", createdAt: new Date() },
-    ];
-    const typingMessage = { senderId: 2, msg: true };
-    useEffect(()=>{
-        const data={fdId:currentFriend._id,
-            myId:myInfo.id};
-        dispatch(getMessage(data));
-    },[currentFriend?._id])
+
+const Message = ({ currentFriend,socket }) => {
+    const dispatch = useDispatch();
+    const scrollRef = useRef();
+    const [messages, setMessages] = useState([]);
+
+    const { myInfo } = useSelector(state => state.auth);
+    const storeMessages = useSelector(state => state.messenger.messages);
+
+    useEffect(() => {
+        if (currentFriend?._id) {
+            const data = {
+                fdId: currentFriend._id,
+                myId: myInfo.id
+            };
+            dispatch(getMessage(data));
+        }
+    }, [currentFriend?._id, dispatch, myInfo.id]);
+
+    useEffect(() => {
+        setMessages(storeMessages);
+    }, [storeMessages]);
+
+
+   
+   
+    
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
 
     return (
         <>
-            <div className="message-show h-auto p-2 overflow-y-auto">
+            <div className="message-show h-[60vh] p-2 overflow-y-auto">
                 {messages.map((m, index) =>
                     m.senderId === myInfo.id ? (
-                        <div key={m.id} className="w-full flex justify-end mb-4">
+                        <div key={m.id} className="w-full flex justify-end mb-4" ref={scrollRef}>
                             <div className="my-message w-3/4 md:w-1/2 lg:w-1/3">
                                 <div className="image-message flex justify-end">
                                     <div className="my-text flex flex-col items-end">
@@ -51,21 +68,21 @@ const Message = ({currentFriend}) => {
                                     </div>
                                 </div>
                                 <div className="time text-right py-1 text-gray-600 text-xs">
-                                    23:34
+                                    {new Date(m.createdAt).toLocaleTimeString()}
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div key={m.id} className="w-full flex justify-start mb-4">
+                        <div key={m.id} className="w-full flex justify-start mb-4" ref={scrollRef}>
                             <div className="fd-message w-3/4 md:w-1/2 lg:w-1/3">
                                 <div className="image-message-time flex">
-                                    <img src={avatar2} className="w-8 h-8 rounded-full  mr-2" alt="" />
+                                    <img src={avatar2} className="w-8 h-8 rounded-full mr-2" alt="" />
                                     <div className="message-time flex flex-col items-start">
-                                        <p className="message-text text-left p-2 rounded-lg bg-gray-300 text-black">
+                                        <p className="message-text text-left p-2 rounded-lg bg-gray-800 text-white">
                                             {m.message.text === "" ? <img src={avatar} className="w-56 h-68 object-cover rounded" alt="" /> : m.message.text}
                                         </p>
                                         <div className="time text-left py-1 text-gray-600 text-xs">
-                                            23:34
+                                            {new Date(m.createdAt).toLocaleTimeString()}
                                         </div>
                                     </div>
                                 </div>
@@ -74,20 +91,6 @@ const Message = ({currentFriend}) => {
                     )
                 )}
             </div>
-            
-
-            {typingMessage && typingMessage.msg && typingMessage.senderId === currentfriend.id ? (
-                <div className="typing-message p-2">
-                    <div className="fd-message flex">
-                        <div className="image-message-time flex">
-                            <img src={avatar} className="w-8 h-8 rounded-full overflow-hidden mr-2" alt="" />
-                            <div className="message-time flex flex-col items-start">
-                                <p className="time text-gray-600 text-xs">Typing Message....</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ) : null}
         </>
     );
 };
