@@ -15,7 +15,7 @@ const socketfun=require('./socket/socket.js');
 socketfun(server);
 app.use(cookieParser());
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://whataapp.vercel.app",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 200
