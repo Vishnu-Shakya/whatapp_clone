@@ -5,10 +5,11 @@ import Chatwindow from "./Chatwindow";
 import {useDispatch, useSelector} from 'react-redux';
 import { getFriends } from "../store/actions/messengerAction";
 import { io } from 'socket.io-client';
+import { useNavigate } from "react-router-dom";
 
 const Messenger = () => {
     const [activeUser,setActiveUser]=useState([]);
-    const {myInfo}=useSelector(state=>state.auth);
+    const {myInfo,authenticate}=useSelector(state=>state.auth);
     const {currentFriend}=useSelector(state=>state.currentFriend);
     const [socketMessage,setSocketMessage]=useState('');
     const socket=useRef();
@@ -41,14 +42,16 @@ const Messenger = () => {
     })
 
 
-    
-    
-
-   
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(getFriends());
     },[])
+    const navigate=useNavigate();
+    useEffect(()=>{
+        if(!authenticate){
+            navigate('/login');
+        }
+    })
     return (
         <div className="flex h-screen font-sans  justify-around py-8 bg-[#222]">
             <Sidebar activeUser={activeUser} />
