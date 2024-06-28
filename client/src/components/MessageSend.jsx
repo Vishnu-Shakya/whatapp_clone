@@ -26,7 +26,7 @@ const MessageSend = ({ socket }) => {
                 image:""
             }
         });
-        e.target.value="'
+        e.target.value=""
 
         
     };
