@@ -18,7 +18,8 @@ const socketfun = (server) => {
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type"],
             credentials: true
-        }
+        },
+        transports: ['websocket', 'polling']
     });
 
     io.on('connection', (socket) => {
