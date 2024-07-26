@@ -17,6 +17,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin: "https://whataapp.vercel.app",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ["Content-Type"],
   credentials: true,
   optionsSuccessStatus: 200
 };
