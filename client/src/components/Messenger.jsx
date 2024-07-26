@@ -24,7 +24,7 @@ const Messenger = () => {
         }
     },[socketMessage])
     useEffect(() => {
-        socket.current=io('http://localhost:5000')
+        socket.current=io('https://whatapp-clone.onrender.com')
         socket.current.on('getMessage',(data)=>{
             setSocketMessage(data);
         })
