@@ -15,7 +15,9 @@ const socketfun = (server) => {
     const io = socketIo(server, {
         cors: {
             origin: "https://whataapp.vercel.app/",
-            methods: ["GET", "POST"]
+            methods: ["GET", "POST"],
+            allowedHeaders: ["Content-Type"],
+            credentials: true
         }
     });
 
