@@ -27,7 +27,10 @@ const socketfun=require('./socket/socket.js');
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "https://whataapp.vercel.app",  // No trailing slash here
+  allowedOrigins = [
+    'https://whataapp.vercel.app',
+    'https://whataapp.vercel.app/', // Allowing both with and without trailing slash
+]
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ["Content-Type", "my-custom-header"],  // Keep headers consistent with socket.io
   credentials: true,
