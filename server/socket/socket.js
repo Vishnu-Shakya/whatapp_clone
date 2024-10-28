@@ -16,9 +16,8 @@ const socketfun = (server) => {
         cors: {
             origin: "https://whataapp.vercel.app",
             methods: ["GET", "POST"],
-            allowedHeaders: ["my-custom-header"],
+            allowedHeaders: ["Content-Type", "my-custom-header"],
             credentials: true,
-            "Access-Control-Allow-Origin": "*",
         },
         transports: ["websocket"]
     });
