@@ -12,16 +12,32 @@ const socketfun=require('./socket/socket.js');
 
 
 
-socketfun(server);
+// socketfun(server);
+// app.use(cookieParser());
+// const corsOptions = {
+//   origin: "https://whataapp.vercel.app",
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   allowedHeaders: ["Content-Type"],
+//   credentials: true,
+//   optionsSuccessStatus: 200
+// };
+// app.use(cors(corsOptions));
+
+
 app.use(cookieParser());
+
 const corsOptions = {
-  origin: "https://whataapp.vercel.app",
+  origin: "https://whataapp.vercel.app",  // No trailing slash here
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: ["Content-Type"],
+  allowedHeaders: ["Content-Type", "my-custom-header"],  // Keep headers consistent with socket.io
   credentials: true,
   optionsSuccessStatus: 200
 };
+
 app.use(cors(corsOptions));
+
+// Initialize socket functionality
+socketfun(server);
 
 app.use(express.json());
 app.use('/', mainRouter);
