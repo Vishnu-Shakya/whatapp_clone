@@ -19,7 +19,7 @@ const socketfun = (server) => {
             allowedHeaders: ["Content-Type", "my-custom-header"],
             credentials: true,
         },
-        transports: ["websocket"]
+        transports: ["websocket", "polling"],
     });
 
     io.on('connection', (socket) => {
