@@ -17,8 +17,10 @@ const socketfun = (server) => {
             origin: "https://whataapp.vercel.app",
             methods: ["GET", "POST"],
             allowedHeaders: ["my-custom-header"],
-            credentials: true
-        }
+            credentials: true,
+            "Access-Control-Allow-Origin": "*",
+        },
+        transports: ["websocket"]
     });
 
     io.on('connection', (socket) => {
