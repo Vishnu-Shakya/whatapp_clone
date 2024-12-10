@@ -29,6 +29,7 @@ export const userRegister = (data) => {
 export const userLogin = (data) => {
     return async (dispatch) => {
         console.log(data);
+        console.log(import.meta.env.VITE_SERVER_URL + '/login')
         try {
             const response = await axios.post(import.meta.env.VITE_SERVER_URL + '/login', data);
             console.log(response)
@@ -46,7 +47,7 @@ export const userLogin = (data) => {
             dispatch({
                 type: REGISTER_FAIL,
                 payload: {
-                    error: error.response.data.error.errorMessage
+                    error: error
                 }
             })
         }

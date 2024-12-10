@@ -27,14 +27,10 @@ const socketfun=require('./socket/socket.js');
 app.use(cookieParser());
 
 const corsOptions = {
-  allowedOrigins = [
-    'https://whataapp.vercel.app',
-    'https://whataapp.vercel.app/', // Allowing both with and without trailing slash
-]
+  origin: "*",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ["Content-Type", "my-custom-header"],  // Keep headers consistent with socket.io
   credentials: true,
-  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
@@ -49,8 +45,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URL);
-    server.listen(process.env.PORT || 5000, () => {
-      console.log(`Server is listening on http://127.0.0.1:${process.env.PORT || 5000}/`);
+    server.listen(process.env.PORT || 3000, () => {
+      console.log(`Server is listening on http://127.0.0.1:${process.env.PORT || 3000}/`);
     });
   } catch (error) {
     console.log(error);

@@ -2,6 +2,8 @@ import { CURRENT_FRIEND_SELECT, FRIEND_GET_FAIL, FRIEND_GET_SUCCESS } from "../t
 
 const messengerState={
     currentFriend:"",
+    status:0 // not active
+    
 }
 
 export const currentFriendReducer=(state=messengerState,action)=>{

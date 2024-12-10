@@ -43,7 +43,7 @@ const Message = ({ currentFriend,socket }) => {
             <div className="message-show h-[60vh] p-2 overflow-y-auto">
                 {messages.map((m, index) =>
                     m.senderId === myInfo.id ? (
-                        <div key={m.id} className="w-full flex justify-end mb-4" ref={scrollRef}>
+                        <div key={index} className="w-full flex justify-end mb-4" ref={scrollRef}>
                             <div className="my-message w-3/4 md:w-1/2 lg:w-1/3">
                                 <div className="image-message flex justify-end">
                                     <div className="my-text flex flex-col items-end">

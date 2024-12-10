@@ -24,8 +24,9 @@ const Messenger = () => {
         }
     },[socketMessage])
     useEffect(() => {
-        socket.current=io('https://whatapp-clone.onrender.com')
+        socket.current=io(import.meta.env.VITE_SERVER_URL)
         socket.current.on('getMessage',(data)=>{
+            console.log(data)
             setSocketMessage(data);
         })
      }, []);
@@ -55,7 +56,7 @@ const Messenger = () => {
     return (
         <div className="flex h-screen font-sans  justify-around py-8 bg-[#222]">
             <Sidebar activeUser={activeUser} />
-            <Chatwindow socket={socket} />
+            <Chatwindow socket={socket} activeUser={activeUser}  />
         </div>
     );
 };

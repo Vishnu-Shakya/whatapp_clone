@@ -49,6 +49,9 @@ const ChatList = ({ activeUser }) => {
     
     const { friends } = useSelector((state) => state.messenger);
     console.log(friends)
+    const sortedFriends = [...friends].sort((a, b) => {
+        return b.lastMessageTimestamp - a.lastMessageTimestamp; // Descending order
+    });
     return (
         <div className="flex-1 overflow-y-auto">
             {friends && friends.length > 0
@@ -56,13 +59,14 @@ const ChatList = ({ activeUser }) => {
                       <div
                           key={index}
                           className="p-2 border-b border-gray-700 hover:bg-gray-700 flex h-auto "
-                          onClick={() =>
+                          onClick={() =>{
                               dispatch({
                                   type: CURRENT_FRIEND_SELECT,
                                   payload: {
                                       currentFriend: friend,
                                   },
                               })
+                            }
                           }
                       >
                           <div className="flex items-center p-4 relative">

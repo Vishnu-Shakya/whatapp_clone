@@ -5,9 +5,7 @@ export const getFriends = () => async (dispatch) => {
 
     try {
         console.log(import.meta.env.VITE_SERVER_URL + '/get-friends')
-        const response = await axios.get(import.meta.env.VITE_SERVER_URL + '/get-friends', {
-            withCredentials: true
-        });
+        const response = await axios.get(import.meta.env.VITE_SERVER_URL + '/get-friends');
         console.log(response.data.friends)
         dispatch({
             type: FRIEND_GET_SUCCESS,

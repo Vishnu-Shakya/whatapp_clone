@@ -2,8 +2,8 @@ const socketIo = require('socket.io');
 
 const socketfun = (server) => {
     let users = [];
-    const isFriendActicve=(id)=>{
-        return users.find(u=>u.userId===id);
+    const isFriendActicve = (id) => {
+        return users.find(u => u.userId === id);
     }
     const addUser = (userId, socketId, userInfo) => {
         const checkUser = users.some(u => u.userId === userId);
@@ -14,12 +14,10 @@ const socketfun = (server) => {
     }
     const io = socketIo(server, {
         cors: {
-            origin: "https://whataapp.vercel.app",
-            methods: ["GET", "POST"],
-            allowedHeaders: ["Content-Type", "my-custom-header"],
+            origin: "*",
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
-        },
-        transports: ["websocket", "polling"],
+        }
     });
 
     io.on('connection', (socket) => {
@@ -29,17 +27,17 @@ const socketfun = (server) => {
             addUser(userId, socket.id, userInfo);
             io.emit('getUser', users);
         });
-        socket.on('sendMessage',data=>{
+        socket.on('sendMessage', data => {
             console.log(data);
-            const user=isFriendActicve(data.receiverId);
-            if(user!==undefined){
+            const user = isFriendActicve(data.receiverId);
+            if (user !== undefined) {
                 console.log("yes");
                 console.log(user.socketId);
-                socket.to(user.socketId).emit('getMessage',{
-                    senderId:data.senderId,
-                    receiverId:data.receiverId,
-                    message:data.message,
-                    createdAt:data.time,
+                socket.to(user.socketId).emit('getMessage', {
+                    senderId: data.senderId,
+                    receiverId: data.receiverId,
+                    message: data.message,
+                    createdAt: data.time,
                 })
             }
         })

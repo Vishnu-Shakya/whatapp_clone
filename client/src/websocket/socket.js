@@ -1,11 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('https://whatapp-clone.onrender.com',{
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd"
-  }
-});
+const socket = io(import.meta.env.VITE_SERVER_URL);
 
 socket.on('connect', () => {
   console.log('connected to server');
